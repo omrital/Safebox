@@ -9,7 +9,7 @@ import com.general.safebox.enums.ToolbarNavigationAction;
 
 public class SafeBoxToolbar extends Toolbar {
 
-    public static int NAV_ACTION_ID = 150;
+    public static final int BACK_ACTION_ID = 150;
 
     public SafeBoxToolbar(Context context) {
         super(context);

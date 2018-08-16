@@ -32,13 +32,18 @@
     <string name="update_password_hint">Password</string>
     <string name="add_password_button">Add Password</string>
     <string name="update_passwords_empty_state">Passwords list is empty, click the Add button to add new password</string>
+    <string name="update_passwords_saved_toast">passwords saved</string>
 
 
     //  Settings
     <string name="settings_toolbar">Settings</string>
     <string name="settings_update_location_button">Update location</string>
     <string name="settings_name">Name</string>
-    <string name="settings_last_name">Last name</string>
+    <string name="settings_last_name">Last Name</string>
+    <string name="settings_alert_no_permission_title">No Permission to get location</string>
+    <string name="settings_alert_no_permission_message">Can not find location</string>
+    <string name="settings_alert_no_permission_button">OK</string>
+    <string name="settings_saved_toast">settings saved</string>
 
 
     //  About

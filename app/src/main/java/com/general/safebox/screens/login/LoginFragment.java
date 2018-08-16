@@ -77,7 +77,7 @@ public class LoginFragment extends BaseFragment {
             String password = passwordInput.getText().toString();
 
             if(isFirstTime) {
-                preferences.setUserPassword(password);
+                preferences.saveUserPassword(password);
                 navigator.passwordsList();
             } else {
                 if(password.equals(savedPassword)) {

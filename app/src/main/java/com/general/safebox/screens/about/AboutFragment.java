@@ -7,11 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.general.safebox.R;
 import com.general.safebox.core.BaseFragment;
 import com.general.safebox.enums.ToolbarNavigationAction;
-
+import com.general.safebox.widgets.SafeBoxToolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -25,24 +24,11 @@ public class AboutFragment  extends BaseFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_about, container, false);
         unbinder = ButterKnife.bind(this, view);
-
-
-
-
-
         initView();
         return view;
     }
 
-    private void initView() {
-
-
-
-
-    }
-
-
-
+    private void initView() { }
 
     @Override
     protected int getMenuRes() {
@@ -61,10 +47,11 @@ public class AboutFragment  extends BaseFragment {
 
     @Override
     protected void onToolbarActionClick(int actionId) {
-
-
-
-
+        switch (actionId) {
+            case SafeBoxToolbar.BACK_ACTION_ID: {
+                getActivity().onBackPressed();
+            }
+        }
     }
 }
 

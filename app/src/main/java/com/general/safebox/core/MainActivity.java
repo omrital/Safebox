@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item == null) {
-            currentFragment.onToolbarActionClick(SafeBoxToolbar.NAV_ACTION_ID);
+            currentFragment.onToolbarActionClick(SafeBoxToolbar.BACK_ACTION_ID);
             return true;
         }
         currentFragment.onToolbarActionClick(item.getItemId());
