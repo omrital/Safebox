@@ -32,7 +32,7 @@ public class PasswordsListFragment extends BaseFragment {
     }
 
     private void initView() {
-        
+
 
     }
 

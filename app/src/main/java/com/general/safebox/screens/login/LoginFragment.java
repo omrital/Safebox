@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.general.safebox.R;
 import com.general.safebox.Utils.AlertPresenter;
+import com.general.safebox.Utils.Keyboard;
 import com.general.safebox.core.BaseFragment;
 import com.general.safebox.enums.ToolbarNavigationAction;
 import com.general.safebox.widgets.AlphaFrameLayout;
@@ -80,6 +81,7 @@ public class LoginFragment extends BaseFragment {
                 navigator.passwordsList();
             } else {
                 if(password.equals(savedPassword)) {
+                    Keyboard.hide(getActivity(), getView());
                     navigator.passwordsList();
                 } else {
                     AlertPresenter.showAlert(getActivity(), R.string.login_password_alert_title, R.string.login_password_alert_message, R.string.login_password_alert_ok);

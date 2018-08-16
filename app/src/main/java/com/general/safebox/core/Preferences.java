@@ -3,6 +3,12 @@ package com.general.safebox.core;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.general.safebox.model.PasswordInfo;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+
 public class Preferences {
 
     private static Preferences instance;
@@ -10,7 +16,9 @@ public class Preferences {
     private final String SHARED_PREFERENCES_FILE_NAME = "SafeBoxPreferences";
 
     private static final String USER_PASSWORD = "user_password";
-
+    private static final String USER_SAVED_PASSWORDS = "user_saved_passwords";
+    private static final String USER_NAME = "user_name";
+    private static final String USER_LAST_NAME= "user_last_name";
 
     public static Preferences getInstance(Context context) {
         if(instance == null) {
@@ -29,5 +37,34 @@ public class Preferences {
 
     public void setUserPassword(String password) {
         sharedPreferences.edit().putString(USER_PASSWORD, password).apply();
+    }
+
+    public String getUserName() {
+        return sharedPreferences.getString(USER_NAME, "");
+    }
+
+    public void setUserName(String name) {
+        sharedPreferences.edit().putString(USER_NAME, name).apply();
+    }
+
+    public String getUserLastName() {
+        return sharedPreferences.getString(USER_LAST_NAME, "");
+    }
+
+    public void setUserLastName(String lastName) {
+        sharedPreferences.edit().putString(USER_LAST_NAME, lastName).apply();
+    }
+
+    public void savePasswords(ArrayList<PasswordInfo> passwords) {
+        String passwordsJson = new Gson().toJson(passwords);
+        sharedPreferences.edit().putString(USER_SAVED_PASSWORDS, passwordsJson).apply();
+    }
+
+    public ArrayList<PasswordInfo> getPasswords() {
+        String passwordsJson = sharedPreferences.getString(USER_SAVED_PASSWORDS, "");
+        if(passwordsJson.isEmpty()) {
+            return new Gson().fromJson(passwordsJson, new TypeToken<ArrayList<PasswordInfo>>(){}.getType());
+        }
+        return new ArrayList<>();
     }
 }

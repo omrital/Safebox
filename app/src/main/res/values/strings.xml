@@ -1,10 +1,6 @@
 <resources>
     <string name="app_name">Safebox</string>
 
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
     //  toolbar
     <string name="action_back">Back</string>
     <string name="action_edit">Edit</string>
@@ -24,8 +20,10 @@
     <string name="login_password_alert_message">Please enter the correct password</string>
     <string name="login_password_alert_ok">OK</string>
 
+
     //  Passwords
     <string name="passwords_toolbar">Your Passwords</string>
+    <string name="passwords_empty_state">Passwords list is empty, click the Edit button on the toolbar to add new password</string>
 
 
     //  Update Passwords
@@ -33,11 +31,14 @@
     <string name="update_description_hint">Description</string>
     <string name="update_password_hint">Password</string>
     <string name="add_password_button">Add Password</string>
+    <string name="update_passwords_empty_state">Passwords list is empty, click the Add button to add new password</string>
 
 
     //  Settings
     <string name="settings_toolbar">Settings</string>
     <string name="settings_update_location_button">Update location</string>
+    <string name="settings_name">Name</string>
+    <string name="settings_last_name">Last name</string>
 
 
     //  About

@@ -2,7 +2,11 @@ package com.general.safebox.core;
 
 import android.support.v4.app.FragmentTransaction;
 import com.general.safebox.R;
+import com.general.safebox.screens.about.AboutFragment;
 import com.general.safebox.screens.login.LoginFragment;
+import com.general.safebox.screens.passwords.PasswordsListFragment;
+import com.general.safebox.screens.settings.SettingsFragment;
+import com.general.safebox.screens.update.UpdatePasswordsFragment;
 
 public class Navigator {
 
@@ -27,19 +31,19 @@ public class Navigator {
     }
 
     public void passwordsList() {
-        navigateToFragment(new LoginFragment());
+        navigateToFragment(new PasswordsListFragment());
     }
 
     public void updatePasswords() {
-        navigateToFragment(new LoginFragment());
+        navigateToFragment(new UpdatePasswordsFragment());
     }
 
     public void settings() {
-        navigateToFragment(new LoginFragment());
+        navigateToFragment(new SettingsFragment());
     }
 
     public void about() {
-        navigateToFragment(new LoginFragment());
+        navigateToFragment(new AboutFragment());
     }
 
     private void navigateToFragment(BaseFragment fragment) {
