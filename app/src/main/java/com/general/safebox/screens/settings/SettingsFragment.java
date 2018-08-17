@@ -35,8 +35,8 @@ public class SettingsFragment extends BaseFragment implements LocationListener {
     private final int PERMISSION_REQUEST_CODE = 0;
     private LocationManager locationManager;
     private boolean hasPermission;
-    private double currentLatitude;
-    private double currentLongitude;
+    private Double currentLatitude;
+    private Double currentLongitude;
 
     @BindView(R.id.nameEditText) EditText nameEditText;
     @BindView(R.id.lastNameEditText) EditText lastNameEditText;
@@ -159,8 +159,12 @@ public class SettingsFragment extends BaseFragment implements LocationListener {
     }
 
     private void saveLocation() {
-        preferences.saveUserLatitude(String.valueOf(currentLatitude));
-        preferences.saveUserLongitude(String.valueOf(currentLongitude));
+        if(currentLatitude != null) {
+            preferences.saveUserLatitude(String.valueOf(currentLatitude));
+        }
+        if(currentLongitude != null) {
+            preferences.saveUserLongitude(String.valueOf(currentLongitude));
+        }
     }
 
     @Override
