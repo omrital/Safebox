@@ -56,7 +56,7 @@ public class Preferences {
     }
 
     public String getUserLongitude() {
-        return sharedPreferences.getString(USER_LATITUDE, "0.0");
+        return sharedPreferences.getString(USER_LATITUDE, "");
     }
 
     public void saveUserLongitude(String longitude) {
@@ -64,7 +64,7 @@ public class Preferences {
     }
 
     public String getUserLatitude() {
-        return sharedPreferences.getString(USER_LATITUDE, "0.0");
+        return sharedPreferences.getString(USER_LATITUDE, "");
     }
 
     public void saveUserLatitude(String latitude) {

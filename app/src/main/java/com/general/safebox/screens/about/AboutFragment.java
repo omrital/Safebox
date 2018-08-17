@@ -16,9 +16,6 @@ import butterknife.ButterKnife;
 
 public class AboutFragment  extends BaseFragment {
 
-    @BindView(R.id.passwordInfoText)
-    TextView passwordInfoText;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -52,6 +49,16 @@ public class AboutFragment  extends BaseFragment {
                 getActivity().onBackPressed();
             }
         }
+    }
+
+    @Override
+    protected boolean isAddToStack() {
+        return true;
+    }
+
+    @Override
+    protected boolean isAnimated() {
+        return true;
     }
 }
 

@@ -7,11 +7,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.general.safebox.R;
@@ -28,7 +30,7 @@ import static android.content.Context.LOCATION_SERVICE;
 
 public class SettingsFragment extends BaseFragment implements LocationListener {
 
-    private String GOOGLE_MAPS_URL = "https://www.google.com/maps/place/";
+    private String GOOGLE_MAPS_URL = "http://maps.google.com/maps?q=";
     private final long FOUR_MINUTES = 240000;
     private final int PERMISSION_REQUEST_CODE = 0;
     private LocationManager locationManager;
@@ -44,6 +46,7 @@ public class SettingsFragment extends BaseFragment implements LocationListener {
     public void updateLocation() {
         if(hasPermission) {
             locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, this, null);
+            locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, this, null);
         } else {
             showPermissionAlert();
         }
@@ -66,12 +69,19 @@ public class SettingsFragment extends BaseFragment implements LocationListener {
     }
 
     private void initWebView() {
-        webView.loadUrl(GOOGLE_MAPS_URL);
-
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
         webView.setOnTouchListener((View view, MotionEvent motionEvent) -> {
             Keyboard.hide(getActivity(), getView());
             return false;
         });
+
+        String latitude = preferences.getUserLatitude();
+        String longitude = preferences.getUserLongitude();
+
+        if(!latitude.isEmpty() && !longitude.isEmpty()) {
+            showLocation(Double.valueOf(latitude), Double.valueOf(longitude));
+        }
     }
 
     private void checkForLocationPermission() {
@@ -104,16 +114,21 @@ public class SettingsFragment extends BaseFragment implements LocationListener {
         locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
 
         Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if(lastKnownLocation == null) {
+            lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
         if(lastKnownLocation != null) {
             showLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, FOUR_MINUTES, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, FOUR_MINUTES, 0, this);
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        this.currentLatitude = location.getLatitude();
-        this.currentLongitude = location.getLongitude();
+        currentLatitude = location.getLatitude();
+        currentLongitude = location.getLongitude();
+        Log.d("location", String.format("new location:  %s, %s", currentLatitude, currentLongitude));
 
         showLocation(currentLatitude, currentLongitude);
         saveLocation();
@@ -129,8 +144,12 @@ public class SettingsFragment extends BaseFragment implements LocationListener {
     public void onProviderDisabled(String s) { }
 
     private void showLocation(double latitude, double longitide) {
-        String URL =  String.format("%s%d%d", GOOGLE_MAPS_URL, latitude, longitide);
-        webView.loadUrl(URL);
+        Log.d("location", String.format("show on map:  %s, %s", latitude, longitide));
+
+        String URL =  String.format("%s%s,%s", GOOGLE_MAPS_URL, latitude, longitide);
+        if(webView != null) {
+            webView.loadUrl(URL);
+        }
     }
 
     private void saveSettings() {
@@ -182,8 +201,12 @@ public class SettingsFragment extends BaseFragment implements LocationListener {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        saveSettings();
+    protected boolean isAddToStack() {
+        return true;
+    }
+
+    @Override
+    protected boolean isAnimated() {
+        return true;
     }
 }

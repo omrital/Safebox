@@ -48,9 +48,13 @@ public class Navigator {
 
     private void navigateToFragment(BaseFragment fragment) {
         FragmentTransaction transaction = this.activity.getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.slide_left_from_right_of_screen, R.anim.slide_left_from_screen, R.anim.slide_right_from_left_of_screen, R.anim.slide_right_from_screen);
+        if(fragment.isAnimated()) {
+            transaction.setCustomAnimations(R.anim.slide_left_from_right_of_screen, R.anim.slide_left_from_screen, R.anim.slide_right_from_left_of_screen, R.anim.slide_right_from_screen);
+        }
         transaction.replace(R.id.content, fragment);
-        transaction.addToBackStack(null);
+        if(fragment.isAddToStack()) {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
         activity.setCurrentFragment(fragment);
     }

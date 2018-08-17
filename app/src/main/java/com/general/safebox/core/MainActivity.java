@@ -76,4 +76,10 @@ public class MainActivity extends AppCompatActivity {
         currentFragment.onToolbarActionClick(item.getItemId());
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setCurrentFragment((BaseFragment) getSupportFragmentManager().findFragmentById(R.id.content));
+    }
 }

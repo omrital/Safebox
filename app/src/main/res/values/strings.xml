@@ -23,7 +23,7 @@
 
     //  Passwords
     <string name="passwords_toolbar">Your Passwords</string>
-    <string name="passwords_empty_state">Passwords list is empty, click the Edit button on the toolbar to add new password</string>
+    <string name="passwords_empty_state">Passwords list is empty</string>
 
 
     //  Update Passwords
@@ -31,7 +31,7 @@
     <string name="update_description_hint">Description</string>
     <string name="update_password_hint">Password</string>
     <string name="add_password_button">Add Password</string>
-    <string name="update_passwords_empty_state">Passwords list is empty, click the Add button to add new password</string>
+    <string name="update_passwords_empty_state">Click the Add button to add new password</string>
     <string name="update_passwords_saved_toast">passwords saved</string>
 
 

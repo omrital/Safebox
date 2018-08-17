@@ -86,4 +86,14 @@ public class PasswordsListFragment extends BaseFragment {
             }
         }
     }
+
+    @Override
+    protected boolean isAddToStack() {
+        return false;
+    }
+
+    @Override
+    protected boolean isAnimated() {
+        return true;
+    }
 }

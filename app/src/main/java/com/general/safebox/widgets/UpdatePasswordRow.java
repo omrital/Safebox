@@ -1,5 +1,6 @@
 package com.general.safebox.widgets;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -14,14 +15,33 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UpdatePasswordRow  extends LinearLayout {
+public class UpdatePasswordRow extends LinearLayout {
 
     @BindView(R.id.description) EditText descriptionEditText;
     @BindView(R.id.password) EditText passwordEditText;
 
+    private OnRowDeletedListener onRowDeletedListener;
+
     @OnClick(R.id.removeButton)
     public void onRemoveButtonClick() {
-        ((ViewGroup) getParent()).removeView(this);
+        animate().alpha(0.0f).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) { }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                ((ViewGroup) getParent()).removeView(UpdatePasswordRow.this);
+                if(onRowDeletedListener != null) {
+                    onRowDeletedListener.onRowDeleted();
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) { }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) { }
+        });
     }
 
     public UpdatePasswordRow(Context context) {
@@ -46,13 +66,14 @@ public class UpdatePasswordRow  extends LinearLayout {
 
     private void init(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.password_row_content, this, true);
+        View v = inflater.inflate(R.layout.update_password_row_content, this, true);
         ButterKnife.bind(this, v);
     }
 
-    public void set(PasswordInfo passwordInfo) {
+    public void set(PasswordInfo passwordInfo, OnRowDeletedListener listener) {
         descriptionEditText.setText(passwordInfo.getDescription());
         passwordEditText.setText(passwordInfo.getPassword());
+        onRowDeletedListener = listener;
     }
 
     public PasswordInfo getPasswordInfo() {
@@ -63,5 +84,9 @@ public class UpdatePasswordRow  extends LinearLayout {
             return null;
         }
         return new PasswordInfo(description, password);
+    }
+
+    public interface OnRowDeletedListener {
+        void onRowDeleted();
     }
 }

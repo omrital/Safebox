@@ -1,12 +1,14 @@
 package com.general.safebox.screens.update;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.general.safebox.R;
@@ -24,9 +26,10 @@ import butterknife.OnClick;
 public class UpdatePasswordsFragment extends BaseFragment {
 
     @BindView(R.id.passwordsList) LinearLayout passwordsList;
+    @BindView(R.id.ScrollView) ScrollView scrollView;
     @BindView(R.id.emptyState) TextView emptyState;
 
-    private ArrayList<UpdatePasswordRow> rows = new ArrayList<>();
+    private ArrayList<UpdatePasswordRow> rows;
 
     @OnClick(R.id.AddPasswordButton)
     public void onAddPasswordClick() {
@@ -44,6 +47,8 @@ public class UpdatePasswordsFragment extends BaseFragment {
 
     private void initView() {
         ArrayList<PasswordInfo> passwords = preferences.getPasswords();
+        rows = new ArrayList<>();
+
         if(passwords.isEmpty()) {
             emptyState.setVisibility(View.VISIBLE);
         } else {
@@ -61,9 +66,26 @@ public class UpdatePasswordsFragment extends BaseFragment {
     private void addRow(PasswordInfo info) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         UpdatePasswordRow row = (UpdatePasswordRow) inflater.inflate(R.layout.update_password_row, null);
-        row.set(info);
+        row.set(info, () -> {
+            rows.remove(row);
+            updateEmptyState();
+        });
         rows.add(row);
         passwordsList.addView(row);
+        row.setAlpha(0.0f);
+        row.animate().alpha(1.0f);
+        scrollDown(row);
+        updateEmptyState();
+    }
+
+    private void scrollDown(UpdatePasswordRow newRow) {
+        new Handler().postDelayed(() -> {
+            scrollView.fullScroll(View.FOCUS_DOWN);
+        }, 100);
+    }
+
+    private void updateEmptyState() {
+        emptyState.setVisibility(rows.isEmpty()? View.VISIBLE : View.GONE);
     }
 
     private void savePasswords() {
@@ -75,9 +97,7 @@ public class UpdatePasswordsFragment extends BaseFragment {
                 passwords.add(row.getPasswordInfo());
             }
         }
-        if(!passwords.isEmpty()) {
-            preferences.savePasswords(passwords);
-        }
+        preferences.savePasswords(passwords);
     }
 
     @Override
@@ -126,8 +146,12 @@ public class UpdatePasswordsFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        savePasswords();
+    protected boolean isAddToStack() {
+        return true;
+    }
+
+    @Override
+    protected boolean isAnimated() {
+        return true;
     }
 }

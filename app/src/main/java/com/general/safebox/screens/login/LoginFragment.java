@@ -108,4 +108,14 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void onToolbarActionClick(int actionId) { }
+
+    @Override
+    protected boolean isAddToStack() {
+        return false;
+    }
+
+    @Override
+    protected boolean isAnimated() {
+        return false;
+    }
 }

@@ -20,6 +20,8 @@ public abstract class BaseFragment extends Fragment {
     protected abstract int getToolbarTitleRes();
     protected abstract ToolbarNavigationAction getNavigationAction();
     protected abstract void onToolbarActionClick(int actionId);
+    protected abstract boolean isAddToStack();
+    protected abstract boolean isAnimated();
 
     @Nullable
     @Override
