@@ -199,8 +199,8 @@ public class SettingsFragment extends BaseFragment implements LocationListener {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         saveSettings();
     }
 

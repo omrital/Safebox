@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.general.safebox.R;
 import com.general.safebox.Utils.Keyboard;
+import com.general.safebox.Utils.SoundPlayer;
 import com.general.safebox.core.BaseFragment;
 import com.general.safebox.enums.ToolbarNavigationAction;
 import com.general.safebox.model.PasswordInfo;
@@ -33,6 +34,7 @@ public class UpdatePasswordsFragment extends BaseFragment {
 
     @OnClick(R.id.AddPasswordButton)
     public void onAddPasswordClick() {
+        SoundPlayer.playSound(getActivity(), R.raw.add_password_sound);
         addRow(new PasswordInfo("", ""));
     }
 
@@ -66,19 +68,22 @@ public class UpdatePasswordsFragment extends BaseFragment {
     private void addRow(PasswordInfo info) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         UpdatePasswordRow row = (UpdatePasswordRow) inflater.inflate(R.layout.update_password_row, null);
-        row.set(info, () -> {
-            rows.remove(row);
-            updateEmptyState();
-        });
+        row.set(info, () -> onRowRemoved(row));
         rows.add(row);
         passwordsList.addView(row);
         row.setAlpha(0.0f);
         row.animate().alpha(1.0f);
-        scrollDown(row);
+        scrollDown();
         updateEmptyState();
     }
 
-    private void scrollDown(UpdatePasswordRow newRow) {
+    private void onRowRemoved(UpdatePasswordRow row) {
+        SoundPlayer.playSound(getActivity(), R.raw.remove_password_sound);
+        rows.remove(row);
+        updateEmptyState();
+    }
+
+    private void scrollDown() {
         new Handler().postDelayed(() -> {
             scrollView.fullScroll(View.FOCUS_DOWN);
         }, 100);
@@ -140,8 +145,8 @@ public class UpdatePasswordsFragment extends BaseFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         savePasswords();
     }
 

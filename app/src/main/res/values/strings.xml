@@ -48,5 +48,26 @@
 
     //  About
     <string name="about_toolbar">About</string>
+    <string name="about_my_name">Zion Nava</string>
+    <string name="about_my_job">Junior Data Scientist at BlueVine</string>
+    <string name="about_my_location">Israel</string>
+    <string name="about_experience_title">Experience</string>
+    <string name="about_job1_name">Junior Data Scientist</string>
+    <string name="about_job1_company">BlueVine</string>
+    <string name="about_job1_extra">Aug 2018 – Present</string>
+    <string name="about_job2_name">NOC engineer</string>
+    <string name="about_job2_company">Gigya</string>
+    <string name="about_job2_extra">Mar 2017 – Present</string>
+    <string name="about_job3_name">Research Assistant</string>
+    <string name="about_job3_company">STKI</string>
+    <string name="about_job3_extra">Sep 2016 – Apr 2017</string>
+    <string name="about_education_title">Education</string>
+    <string name="about_education1">The Academic College of Tel-Aviv, Yaffo</string>
+    <string name="about_education2">Bachelor of Science (BSc), Management Information Systems, General</string>
+    <string name="about_education3">2015 – 2018</string>
+    <string name="about_skills_title">Skills &amp; Endorsements</string>
+    <string name="about_skills1">SQL</string>
+    <string name="about_skills2">JavaScript</string>
+    <string name="about_skills3">PHP</string>
 
 </resources>

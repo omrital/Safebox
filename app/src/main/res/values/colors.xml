@@ -6,6 +6,8 @@
     <color name="white">#FFF</color>
     <color name="black">#000</color>
     <color name="gray">#EEE</color>
+    <color name="gray_dark">#AAA</color>
+    <color name="colorToolbarShadow">#55000000</color>
     <color name="red">#F00</color>
     <color name="transparent">#0000</color>
 </resources>
